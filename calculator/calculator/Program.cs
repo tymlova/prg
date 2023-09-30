@@ -60,10 +60,31 @@ namespace calculator
                     case 1: result = x + y; break;
                     case 2: result = x - y; break;
                     case 3: result = x * y; break;
-                    case 4: result = x / y; break;
-                    case 5: Console.WriteLine("zadejte kolikátou mocninu prvního čísla budete chtít");
-                    int mocnina = Convert.ToInt32(Console.ReadLine());
-                    result = Math.Pow(z, mocnina);
+                    case 4: if(y != 0)
+                            {
+                                result = x / y;
+                            }
+                            else
+                            {Console.WriteLine("řešení neexistuje - nulou nelze dělit");}
+                            break;    
+                    case 5: 
+                            if(z == 0)
+                            {
+                                do
+                                {
+                                Console.WriteLine("zadávejte mocninu než nula");
+                                int mocnina = Convert.ToInt32(Console.ReadLine());
+                                }
+                                while(mocnina>0)
+                                result = Math.Pow(z, mocnina);
+                            }
+                            else
+                            { 
+                            Console.WriteLine("zadejte kolikátou mocninu zadaného čísla budete chtít");
+                            int mocnina = Convert.ToInt32(Console.ReadLine());
+                            result = Math.Pow(z, mocnina);
+                            }
+                            
                     break;
                     case 6: result = Math.Sqrt(z);break;
                 case 7: result = Math.Log10(z); break;
