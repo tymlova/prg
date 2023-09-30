@@ -65,7 +65,15 @@ namespace calculator
                                 result = x / y;
                             }
                             else
-                            {Console.WriteLine("řešení neexistuje - nulou nelze dělit");}
+                            {
+                                do
+                                {
+                                    Console.WriteLine("řešení neexistuje - nulou nelze dělit. Zadejte znovu dělitele.");
+                                    y = Convert.ToInt32(Console.Readline());
+                                }
+                                while(y == 0)
+                                
+                            }
                             break;    
                     case 5: 
                             if(z == 0)
