@@ -31,10 +31,12 @@ namespace calculator
             Console.WriteLine("zadejte první číslo:");
             */
             Console.WriteLine("zadejte číslo dle operace:\r\n 1 - sčítání\r\n 2 - odčítání\r\n 3 - násobení\r\n 4 - dělení\r\n 5 - umocnění\r\n" +
-                " 6 - druhá odmocnina\r\n 7 - dekadický logaritmus");
+                " 6 - druhá odmocnina\r\n 7 - dekadický logaritmus \n 8 - převod z desítkové do dvojkové soustavy \n 9 - převod z dvojkové do desítkové soustavy");
             double x = 0;
             double y = 0;
             double z = 0;
+            int a = 0;
+            
             int operace = Convert.ToInt32(Console.ReadLine());
             if (operace == 1 || operace == 2 || operace ==3 || operace == 4) 
             {
@@ -44,6 +46,16 @@ namespace calculator
                 Console.WriteLine("zadejte druhé číslo:");
                 y = Convert.ToDouble(Console.ReadLine());
             }
+            if else(operace == 8) 
+            {
+                Console.WriteLine("zadete celé číslo")
+                a = Convert.ToInt32(Console.ReadLine());
+            }
+            if else(operace == 9)
+            {
+                Console.WriteLine("zadejte číslo v binární soustavě");
+                
+            }
             else
             {
                 Console.WriteLine("zadejte číslo:");
@@ -51,7 +63,8 @@ namespace calculator
             }
             
             double result =0;
-            
+            string decToBinary = "";
+            int docasna;
             
             
             
@@ -96,13 +109,28 @@ namespace calculator
                     break;
                     case 6: result = Math.Sqrt(z);break;
                 case 7: result = Math.Log10(z); break;
+                case 8:
+                    
+                    while(z != 0)
+                    {
+                        docasna = z % 2;
+                        decToBinary = docasna + decToBinary;
+                        z = z  / 2;
+                    }
+                    break;
+                case 9:
+                    
+                    
             }
 
-            
-
-
-
-            Console.WriteLine("výsledek je: "+result);
+            if(operace == 8)
+            {
+                Console.WriteLine(decToBinary);
+            }
+            else
+            {
+                Console.WriteLine("výsledek je: "+result);
+            }
             
 
             Console.ReadKey();
