@@ -31,18 +31,29 @@ namespace calculator
              *3) Umozni uzivateli zadavat i desetinna cisla, tedy prekopej kalkulacku tak, aby umela pracovat s floaty
             Console.WriteLine("zadejte první číslo:");
             */
+<<<<<<< HEAD
             Console.WriteLine("zadejte číslo dle operace:\n 1 - sčítání\n 2 - odčítání\n 3 - násobení\n 4 - dělení\n 5 - umocnění\n" +
                 " 6 - druhá odmocnina\n 7 - dekadický logaritmus \n 8 - převod z desítkové do dvojkové soustavy");
+=======
+            Console.WriteLine("zadejte číslo dle operace:\r\n 1 - sčítání\r\n 2 - odčítání\r\n 3 - násobení\r\n 4 - dělení\r\n 5 - umocnění\r\n" +
+                " 6 - druhá odmocnina\r\n 7 - dekadický logaritmus \n 8 - převod z desítkové do dvojkové soustavy \n 9 - převod z dvojkové do desítkové soustavy");
+>>>>>>> b1339bcc56a4d57354b2aa92d866652c806ee874
             double x = 0;
             double y = 0;
             double z = 0;
             int a = 0;
             double result = 0;
             string decToBinary = "";
+<<<<<<< HEAD
             int binaryToDecOut = 0;
             int docasna;
             string binaryToDecIn;
             int puvodniA = 0;
+=======
+            int docasna;
+            string binary;
+
+>>>>>>> b1339bcc56a4d57354b2aa92d866652c806ee874
             int operace = Convert.ToInt32(Console.ReadLine());
             if (operace == 1 || operace == 2 || operace ==3 || operace == 4) 
             {
@@ -52,16 +63,27 @@ namespace calculator
                 Console.WriteLine("zadejte druhé číslo:");
                 y = Convert.ToDouble(Console.ReadLine());
             }
+<<<<<<< HEAD
             else if (operace == 8)
             {
                 Console.WriteLine("zadete celé číslo");
                 a = Convert.ToInt32(Console.ReadLine());
                
+=======
+            else if (operace == 8) 
+            {
+                Console.WriteLine("zadete celé číslo");
+                a = Convert.ToInt32(Console.ReadLine());
+>>>>>>> b1339bcc56a4d57354b2aa92d866652c806ee874
             }
             else if (operace == 9)
             {
                 Console.WriteLine("zadejte číslo v binární soustavě");
+<<<<<<< HEAD
 
+=======
+                
+>>>>>>> b1339bcc56a4d57354b2aa92d866652c806ee874
             }
             else
             {
@@ -69,6 +91,7 @@ namespace calculator
                 z = Convert.ToDouble(Console.ReadLine());
             }
             
+<<<<<<< HEAD
             switch (operace)
             {
                 case 1: result = x + y; break;
@@ -187,6 +210,83 @@ namespace calculator
                 Console.WriteLine("výsledek je: " + result);
             }
             
+=======
+           
+            
+            
+            
+            switch(operace)
+            {
+                    case 1: result = x + y; break;
+                    case 2: result = x - y; break;
+                    case 3: result = x * y; break;
+                    case 4: if(y != 0)
+                            {
+                                result = x / y;
+                            }
+                            else
+                            {
+                        do
+                        {
+                            Console.WriteLine("řešení neexistuje - nulou nelze dělit. Zadejte znovu dělitele.");
+                            y = Convert.ToInt32(Console.ReadLine());
+                        }
+                        while (y == 0);
+                                
+                            }
+                            break;    
+                    case 5: 
+                            if(z == 0)
+                            {
+                                int mocnina;
+                                do
+
+                                {
+                                    Console.WriteLine("zadávejte mocninu než nula");
+                                    mocnina = Convert.ToInt32(Console.ReadLine());
+                                }
+                                while (mocnina > 0);
+                                result = Math.Pow(z, mocnina);
+                            }
+                            else
+                            { 
+                            Console.WriteLine("zadejte kolikátou mocninu zadaného čísla budete chtít");
+                            int mocnina = Convert.ToInt32(Console.ReadLine());
+                            result = Math.Pow(z, mocnina);
+                            }
+                            
+                    break;
+                    case 6: result = Math.Sqrt(z);break;
+                case 7: result = Math.Log10(z); break;
+                case 8:
+                    
+                    while(a != 0)
+                    {
+                        docasna = a % 2;
+                        decToBinary = docasna + decToBinary;
+                        a = a  / 2;
+                    }
+                    break;
+                case 9:
+                    binary = Convert.ToString(Console.ReadLine());
+                    char[] binaryArr = binary.ToCharArray();
+
+                    break;
+                    
+                    
+            }
+
+            if(operace == 8)
+            {
+                Console.WriteLine(decToBinary);
+            }
+            else
+            {
+                Console.WriteLine("výsledek je: "+result);
+            }
+            
+
+>>>>>>> b1339bcc56a4d57354b2aa92d866652c806ee874
             Console.ReadKey();
         }
     }

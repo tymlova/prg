@@ -55,48 +55,130 @@ namespace Deathroll
             Random rnd = new Random();
             int compsGold = 1000;
             int usersGold = 1000;
-            
-            Console.WriteLine("navrhněte číslo");
-            int sazka = Convert.ToInt32(Console.ReadLine());
-            if (sazka > usersGold)
-            {
-                Console.WriteLine("vaše sázka může být maximálně váš gold" + usersGold);
-            }
-
-            int userHozeno;
             int compHozeno;
-            do
-            {
-                userHozeno = rnd.Next(1, usersGold + 1);
-                if (userHozeno != 1)
-                {
-                    Console.WriteLine("hodil jsi " + userHozeno);
-                }
-                else
+            int userHozeno;
+            while (compsGold > 0 || usersGold > 0) 
+            { 
+                Console.WriteLine("navrhněte číslo (může nybývat hodnoty maximálně vašeho goldu)");
+                int sazka = Convert.ToInt32(Console.ReadLine());
+                
+
+            
+           
+                 userHozeno = rnd.Next(1, sazka + 1);
+                 Console.WriteLine("hodil jsi: " + userHozeno);
+                if (userHozeno ==1)
                 {
                     Console.WriteLine("prohrál jsi");
-                    Console.WriteLine("konec hry, stav tvého goldu je: " + (usersGold - sazka) + " stav goldu pc je: " + (compsGold + sazka));
+                    compsGold = compsGold + sazka;
+                    usersGold = usersGold - sazka;
+                    break;
+                
                 }
-                compHozeno = rnd.Next(1, userHozeno);
-                if (compHozeno != 1)
-                {
-                    Console.WriteLine("počítač hodil " + compHozeno);
-                }
-                else
+                 compHozeno = rnd.Next(1, userHozeno + 1);
+                 Console.WriteLine("počítač hodil: "+ compHozeno);
+                if (compHozeno == 1)
                 {
                     Console.WriteLine("vyhrál jsi");
-                    Console.WriteLine("konec hry, stav tvého goldu je: " + (usersGold + sazka) + " stav goldu pc je: " + (compsGold - sazka));
+                    compsGold = compsGold - sazka;
+                    usersGold = usersGold + sazka;
+                    break;
+                }
+
+                while (userHozeno != 1 || compHozeno != 1)
+                {
+                    userHozeno = rnd.Next(1, compHozeno + 1);
+                    Console.WriteLine("hodil jsi: " + userHozeno);
+                    if (userHozeno == 1)
+                    {
+                        Console.WriteLine("prohrál jsi");
+                        compsGold = compsGold + sazka;
+                        usersGold = usersGold - sazka;
+                        break;
+                    }
+                    compHozeno = rnd.Next(1, userHozeno + 1);
+                    Console.WriteLine("počítač hodil: " + compHozeno);
+                    if (compHozeno == 1)
+                    {
+                        Console.WriteLine("Vyhrál jsi");
+                        compsGold = compsGold - sazka;
+                        usersGold = usersGold + sazka;
+                        break;
+                    }
+                }
+
+                Console.WriteLine("Stav goldu je - uživatel: " + usersGold + " počítač: " + compsGold);
+                if (usersGold <= 0)
+                {
+                    Console.WriteLine("absolutní konec hry, jsi bez goldu a looser");
+                    break;
+                }
+                if (compsGold <= 0)
+                {
+                    Console.WriteLine("absolutní konec hry, JSI VÍTĚZ");
+                    break;
+                }
+                Console.ReadKey();
+                sazka = rnd.Next(1, compsGold+1);
+                Console.WriteLine("sázka počítače je:" + sazka);
+
+                compHozeno = rnd.Next(1, sazka+1);
+                Console.WriteLine("počítač hodil: " + compHozeno);
+                if (compHozeno == 1)
+                {
+                    Console.WriteLine("vyhrál jsi ");
+                    compsGold = compsGold - sazka;
+                    usersGold = usersGold + sazka;
+                    break;
+                }
+
+                userHozeno = rnd.Next(1, compHozeno + 1);
+                Console.WriteLine("hodil jsi: " + userHozeno);
+                if (userHozeno == 1)
+                {
+                    Console.WriteLine("prohrál jsi");
+                    compsGold = compsGold + sazka;
+                    usersGold = usersGold - sazka;
+                    break;
+
+                }
+
+                while (userHozeno != 1 || compHozeno != 1)
+                {
+                    
+                    compHozeno = rnd.Next(1, userHozeno + 1);
+                    Console.WriteLine("počítač hodil: " + compHozeno);
+                    if (compHozeno == 1)
+                    {
+                        Console.WriteLine("Vyhrál jsi");
+                        compsGold = compsGold - sazka;
+                        usersGold = usersGold + sazka;
+                        break;
+                    }
+                    userHozeno = rnd.Next(1, compHozeno + 1);
+                    Console.WriteLine("hodil jsi: " + userHozeno);
+                    if (userHozeno == 1)
+                    {
+                        Console.WriteLine("prohrál jsi");
+                        compsGold = compsGold + sazka;
+                        usersGold = usersGold - sazka;
+                        break;
+                    }
+                }
+                Console.WriteLine("Stav goldu je - uživatel: " + usersGold + " počítač: " + compsGold);
+                if (usersGold <= 0)
+                {
+                    Console.WriteLine("absolutní konec hry, jsi bez goldu a looser");
+                    break;
+                }
+                if (compsGold <= 0)
+                {
+                    Console.WriteLine("absolutní konec hry, JSI VÍTĚZ");
+                    break;
                 }
 
             }
-
-
-            while (userHozeno != 1 || compHozeno != 1);
             
-
-
-
-
             Console.ReadKey();
 
 
