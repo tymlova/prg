@@ -36,7 +36,11 @@ namespace calculator
             double y = 0;
             double z = 0;
             int a = 0;
-            
+            double result = 0;
+            string decToBinary = "";
+            int docasna;
+            string binary;
+
             int operace = Convert.ToInt32(Console.ReadLine());
             if (operace == 1 || operace == 2 || operace ==3 || operace == 4) 
             {
@@ -46,12 +50,12 @@ namespace calculator
                 Console.WriteLine("zadejte druhé číslo:");
                 y = Convert.ToDouble(Console.ReadLine());
             }
-            if else(operace == 8) 
+            else if (operace == 8) 
             {
-                Console.WriteLine("zadete celé číslo")
+                Console.WriteLine("zadete celé číslo");
                 a = Convert.ToInt32(Console.ReadLine());
             }
-            if else(operace == 9)
+            else if (operace == 9)
             {
                 Console.WriteLine("zadejte číslo v binární soustavě");
                 
@@ -62,9 +66,7 @@ namespace calculator
                 z = Convert.ToDouble(Console.ReadLine());
             }
             
-            double result =0;
-            string decToBinary = "";
-            int docasna;
+           
             
             
             
@@ -79,24 +81,26 @@ namespace calculator
                             }
                             else
                             {
-                                do
-                                {
-                                    Console.WriteLine("řešení neexistuje - nulou nelze dělit. Zadejte znovu dělitele.");
-                                    y = Convert.ToInt32(Console.Readline());
-                                }
-                                while(y == 0)
+                        do
+                        {
+                            Console.WriteLine("řešení neexistuje - nulou nelze dělit. Zadejte znovu dělitele.");
+                            y = Convert.ToInt32(Console.ReadLine());
+                        }
+                        while (y == 0);
                                 
                             }
                             break;    
                     case 5: 
                             if(z == 0)
                             {
+                                int mocnina;
                                 do
+
                                 {
-                                Console.WriteLine("zadávejte mocninu než nula");
-                                int mocnina = Convert.ToInt32(Console.ReadLine());
+                                    Console.WriteLine("zadávejte mocninu než nula");
+                                    mocnina = Convert.ToInt32(Console.ReadLine());
                                 }
-                                while(mocnina>0)
+                                while (mocnina > 0);
                                 result = Math.Pow(z, mocnina);
                             }
                             else
@@ -111,14 +115,18 @@ namespace calculator
                 case 7: result = Math.Log10(z); break;
                 case 8:
                     
-                    while(z != 0)
+                    while(a != 0)
                     {
-                        docasna = z % 2;
+                        docasna = a % 2;
                         decToBinary = docasna + decToBinary;
-                        z = z  / 2;
+                        a = a  / 2;
                     }
                     break;
                 case 9:
+                    binary = Convert.ToString(Console.ReadLine());
+                    char[] binaryArr = binary.ToCharArray();
+
+                    break;
                     
                     
             }
