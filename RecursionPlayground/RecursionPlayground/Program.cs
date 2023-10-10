@@ -43,7 +43,11 @@ namespace RecursionPlayground
             {
                 return 1;
             }
-            int result = n + Fibonacci(n - 1);
+           else if (n == 0)
+            {
+                return 0;
+            }
+            int result = Fibonacci(n - 2) + Fibonacci(n - 1);
             return result;
         }
     }
