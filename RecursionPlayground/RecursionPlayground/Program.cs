@@ -39,14 +39,11 @@ namespace RecursionPlayground
         {
             // TODO: Urci ukoncovaci podminku pro Fibonacciho a zavolej Fibonacci zevnitr se spravnym parametrem / vypoctem.
             // TODO: Uprav, aby Fibonacci vracel spravnou hodnotu.
-            if (n==1)
+            if (n<=2)
             {
-                return 1;
+                return n;
             }
-           else if (n == 0)
-            {
-                return 0;
-            }
+           
             int result = Fibonacci(n - 2) + Fibonacci(n - 1);
             return result;
         }
