@@ -87,29 +87,33 @@ namespace ArrayPlayground
                 randomArray[i] = rnd.Next(0, 10);
                 Console.Write(randomArray[i] + " ");
             }
-
             Console.WriteLine(" ");
+
             //TODO 9: Spočítej kolikrát se každé číslo v poli vyskytuje a spočítané četnosti vypiš do konzole.
             int[] counts = new int[10];
-            int[] array09 = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            int counting = 0;
+           
+            foreach (int number in randomArray)
+            {
+                counts[number]++;
+            }
             for (int i = 0; i < counts.Length; i++)
             {
-                for (int j = 0; j < randomArray.Length; j++)
-                {
-                    if (array09[i] == randomArray[j])
-                    {
-                        counting++;    
-                    }
-                }
-                counts[i] = counting;
-                Console.WriteLine(counts[i]);
+                Console.WriteLine($"číslo {i} se vyskytuje {counts[i]} krát");
             }
-            
 
             //TODO 10: Vytvoř druhé pole, do kterého zkopíruješ prvky z prvního pole v opačném pořadí.
+            int[] reversedArray = new int [100];
+            for (int i = randomArray.Length-1; i >=0; i--)
+            {
+                reversedArray[i] = randomArray[reversedArray.Length - 1- i];
+                //Console.Write(randomArray[i]+ " ");
 
-
+            }
+            for (int i = 0; i < reversedArray.Length; i++)
+            {
+                Console.Write(reversedArray[i] + " ");
+            }
+           
             Console.ReadKey();
         }
     }
