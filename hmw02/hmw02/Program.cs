@@ -15,7 +15,13 @@ namespace hmw02
             int b = Convert.ToInt32(Console.ReadLine());*/
             string strA = Console.ReadLine();
             string strB = Console.ReadLine();
+            bool inputCheck = true;
+            if (int.TryParse(string , out int a) = true)
+            {
+
+            }
             
+            int b;
             Console.WriteLine(" ");
             Console.WriteLine("toto je vaše pole:");
             int[,] myArray = new int[a,b];
@@ -50,11 +56,6 @@ namespace hmw02
             }
 
             Console.ReadKey();
-        }
-        
-        public static bool TryParse(string strA, out int[,] result)
-        {
-
         }
     }
 }
