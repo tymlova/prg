@@ -140,6 +140,7 @@ namespace matice
                     }
                     break;
                 case 7:
+                    myArray = case7(myArray, rnd);
                     break;
                 case 8:
                     myArray = case8(myArray, a, b, rnd);
@@ -319,9 +320,31 @@ namespace matice
             return myArray;
         }
 
-        public static int[,] case7(int[,] myArray) //TODO: NÁSOBENÍ MATIC
+        public static int[,] case7(int[,] myArray, Random rnd, int a) //TODO: NÁSOBENÍ MATIC
         {
-            return myArray;
+            Console.WriteLine("zadejte dimenze matice kterou budete násobit");
+            int x = inputControl(Console.ReadLine());
+            int y = inputControl(Console.ReadLine());
+            int[,] myArray2 = new int[x, y];
+            int[,] result = new int[a, y];
+            Console.WriteLine("toto je matice, kterou budete násobit:");
+            for (int i = 0; i < myArray2.GetLength(0); i++)
+            {
+                for (int j = 0; j < myArray2.GetLength(1); j++)
+                {
+                    myArray2[i, j] = rnd.Next(1, x * y);
+                    Console.Write(myArray2[i, j] + " ");
+                }
+                Console.Write("\n");
+            }
+            for (int i = 0; i < result.GetLength(0); i++)
+            {
+                for (int j = 0; j < result.GetLength(1); j++)
+                {
+                    result[i,j] = myArray[]
+                }
+            }
+            return result;
         }
 
         public static int[,] case8(int[,] myArray, int a, int b, Random rnd)
