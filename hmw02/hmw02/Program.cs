@@ -26,7 +26,7 @@ namespace matice
                 for (int j = 0; j < myArray.GetLength(1); j++)
                 {
                     myArray[i, j] = rnd.Next(1, a * b);
-                    Console.Write(myArray[i, j] + " ");
+                    Console.Write(myArray[i, j].ToString().PadLeft((a*b).ToString().Length +1));
                 }
                 Console.Write("\n");
             }
@@ -42,70 +42,37 @@ namespace matice
             Console.WriteLine("7 - násobení dvou matic");
             Console.WriteLine("8 - sčítání dvou matic");
             Console.WriteLine("9 - odčítání dvou matic");
+            Console.WriteLine("10 - násobení matice (celé/řádku/sloupce)");
+            
 
             int operation = inputControl(Console.ReadLine());
 
             //switch 
             switch (operation)
             {
-                case 1:
+                case 1: //prohazování prvků
                     myArray = case1(myArray);
-                    for (int i = 0; i < myArray.GetLength(0); i++)
-                    {
-                        for (int j = 0; j < myArray.GetLength(1); j++)
-                        { 
-                            Console.Write(myArray[i,j] + " ");
-                        }
-                        Console.Write("\n");
-                    }
+                    writeArray(myArray, a, b);
                     break;
-                case 2:
+                case 2: //prohazování řádků
                     myArray = case2(myArray);
-                    for (int i = 0; i < myArray.GetLength(0); i++) 
-                    {
-                        for (int j = 0; j < myArray.GetLength(1); j++)
-                        { 
-                            Console.Write(myArray[i, j] + " ");
-                        }
-                        Console.Write("\n");
-                    }
+                    writeArray(myArray, a, b);
                     break;
-                case 3:
+                case 3: //prohazování sloupců
                     myArray = case3(myArray);
-                    for (int i = 0; i < myArray.GetLength(0); i++)
-                    {
-                        for (int j = 0; j < myArray.GetLength(1); j++)
-                        {
-                            Console.Write(myArray[i, j] + " ");
-                        }
-                        Console.Write("\n");
-                    }
+                    writeArray(myArray, a, b);
                     break;
-                case 4:
+                case 4: //otáčení prvků na hlavní diagonále
                     myArray = case4(myArray, a, b);
-                    for (int i = 0; i < myArray.GetLength(0); i++)
-                    {
-                        for (int j = 0; j < myArray.GetLength(1); j++)
-                        {
-                            Console.Write(myArray[i, j] + " ");
-                        }
-                        Console.Write("\n");
-                    }
+                    writeArray(myArray, a, b);
                     break;
-                case 5:
+                case 5: //otáčení prvků na vedlejší diagonále
                     while (true)
                     {
                         if (a == b)
                         {
                             myArray = case5(myArray);
-                            for (int i = 0; i < myArray.GetLength(0); i++)
-                            {
-                                for (int j = 0; j < myArray.GetLength(1); j++)
-                                {
-                                    Console.Write(myArray[i, j] + " ");
-                                }
-                                Console.Write("\n");
-                            }
+                            writeArray(myArray, a, b);
                             break;
                         }
 
@@ -129,7 +96,7 @@ namespace matice
                         }
                     }
                     break;
-                case 6:
+                case 6: //transpozice
                     for (int i = 0; i < myArray.GetLength(1); i++)
                     {
                         for (int j = 0; j < myArray.GetLength(0); j++)
@@ -139,46 +106,24 @@ namespace matice
                         Console.Write("\n");
                     }
                     break;
-                case 7:
-                    myArray = case7(myArray, rnd, a);
-                    for (int i = 0; i < myArray.GetLength(1); i++)
-                    {
-                        for (int j = 0; j < myArray.GetLength(0); j++)
-                        {
-                            Console.Write(myArray[j, i] + " ");
-                        }
-                        Console.Write("\n");
-                    }
+                case 7: //násobení dvou matic
+                    myArray = case7(myArray, rnd, a,b);
+                    writeArray(myArray, Math.Pow(Convert.ToDouble(a), Convert.ToDouble(2)), Math.Pow(Convert.ToDouble(a), Convert.ToDouble(2));
                     break;
                 case 8:
                     myArray = case8(myArray, a, b, rnd);
                     Console.WriteLine("sečtené matice:");
-                    for (int i = 0; i < myArray.GetLength(0); i++)
-                    {
-                        for (int j = 0; j < myArray.GetLength(1); j++)
-                        {
-                            
-                            Console.Write(myArray[i, j] + " ");
-                        }
-                        Console.Write("\n");
-                    }
+                    writeArray(myArray, a, b);
                     break;
                 case 9:
                     myArray = case9(myArray, a, b, rnd);
                     Console.WriteLine("odečtené matice");
-                    for (int i = 0; i < myArray.GetLength(0); i++)
-                    {
-                        for (int j = 0; j < myArray.GetLength(1); j++)
-                        {
-
-                            Console.Write(myArray[i, j] + " ");
-                        }
-                        Console.Write("\n");
-                    }
+                    writeArray(myArray, a, b);
                     break;
-
-
-
+                case 10:
+                    myArray = case10(myArray);
+                    writeArray(myArray, a, b);
+                    break;
             }
 
             Console.ReadKey();
@@ -232,9 +177,19 @@ namespace matice
                     x = inputControl(Console.ReadLine());
                 }
             }
-
         }
 
+        public static void writeArray(int[,] myArray, int a, int b)
+        {
+            for (int i = 0; i < myArray.GetLength(0); i++)
+            {
+                for (int j = 0; j < myArray.GetLength(1); j++)
+                {
+                    Console.Write(myArray[i, j].ToString().PadLeft((a*b).ToString().Length + 1));
+                }
+                Console.Write("\n");
+            }
+        }
         public static int[,] case1(int[,] myArray) //první je číslo řádku (i)
         {
             Console.WriteLine("zadejte souřadnice prvního prvku"); //TODO: KOTROLA ROZSAHU
@@ -328,11 +283,17 @@ namespace matice
             return myArray;
         }
 
-        public static int[,] case7(int[,] myArray, Random rnd, int a) //TODO: NÁSOBENÍ MATIC
+        public static int[,] case7(int[,] myArray, Random rnd, int a, int b) //TODO: NÁSOBENÍ MATIC
         {
             Console.WriteLine("zadejte dimenze matice kterou budete násobit");
+            Console.WriteLine("první dimenze musí být rovna druhé dimenzi první matice, což je " + b);
             int x = inputControl(Console.ReadLine());
             int y = inputControl(Console.ReadLine());
+            while (x != b)//poočet sloupců první matice se musí rovnat počtu řádků druhé matice
+            {
+                Console.WriteLine("nauč se číst/psát");
+                x = inputControl(Console.ReadLine());
+            }
             int[,] myArray2 = new int[x, y];
             int[,] result = new int[a, y];
             Console.WriteLine("toto je matice, kterou budete násobit:");
@@ -341,31 +302,21 @@ namespace matice
                 for (int j = 0; j < myArray2.GetLength(1); j++)
                 {
                     myArray2[i, j] = rnd.Next(1, x * y);
-                    Console.Write(myArray2[i, j] + " ");
+                    Console.Write(myArray2[i, j].ToString().PadLeft((a * b).ToString().Length + 1));
                 }
                 Console.Write("\n");
             }
-            for (int g = 0; g < result.GetLength(0); g++)
+            for (int i = 0; i < myArray.GetLength(0); i++)
             {
-                for (int h = 0; h < result.GetLength(1); h++)
+                for (int j = 0; j < myArray2.GetLength(1); j++)
                 {
-                    for (int i = 0; i < myArray.GetLength(0); i++)
+                    for (int k = 0; k < myArray.GetLength(1); k++)
                     {
-                        for (int j = 0; j < myArray.GetLength(1); j++)
-                        {
-                            for (int k = 0; k < myArray2.GetLength(0); k++)
-                            {
-                                for (int l = 0; l < myArray2.GetLength(1); l++)
-                                {
-                                    result[g, h] += myArray[i, j] * myArray2[k, l];
-                                }
-                            }
-                        }
+                        result[i, j] += myArray[i, k] * myArray2[k, j];
                     }
-
+                    
                 }
             }
-            
             
             return result;
         }
@@ -416,6 +367,46 @@ namespace matice
                     myArray[i, j] -= myArray2[i, j];
 
                 }
+            }
+            return myArray;
+        }
+
+        public static int[,] case10(int[,] myArray)
+        {
+            Console.WriteLine("co chcete násobit?");
+            Console.WriteLine("1 - celou matici");
+            Console.WriteLine("2 - daný řádek");
+            Console.WriteLine("3 - daný sloupec");
+            int operation = inputControl(Console.ReadLine());
+            Console.WriteLine("čím budete násobit?");
+            int number = inputControl(Console.ReadLine());
+            switch(operation)
+            {
+                case 1:
+                    for (int i = 0; i < myArray.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < myArray.GetLength(1); j++)
+                        {
+                            myArray[i, j] = myArray[i, j] * number;
+                        }
+                    }
+                    break;
+                case 2:
+                    Console.WriteLine("zadejte číslo řádku který chcete vynásobit");
+                    int row = iControl(myArray);
+                    for (int j = 0; j < myArray.GetLength(1); j++)
+                    {
+                        myArray[row, j] = myArray[row, j] * number;
+                    }
+                    break;
+                case 3:
+                    Console.WriteLine("zadejte číslo řádku který chcete vynásobit");
+                    int column = jControl(myArray);
+                    for (int i = 0; i < myArray.GetLength(0); i++)
+                    {
+                        myArray[i, column] = myArray[i, column] * number;
+                    }
+                    break;
             }
             return myArray;
         }
