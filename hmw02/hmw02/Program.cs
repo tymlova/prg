@@ -140,7 +140,15 @@ namespace matice
                     }
                     break;
                 case 7:
-                    myArray = case7(myArray, rnd);
+                    myArray = case7(myArray, rnd, a);
+                    for (int i = 0; i < myArray.GetLength(1); i++)
+                    {
+                        for (int j = 0; j < myArray.GetLength(0); j++)
+                        {
+                            Console.Write(myArray[j, i] + " ");
+                        }
+                        Console.Write("\n");
+                    }
                     break;
                 case 8:
                     myArray = case8(myArray, a, b, rnd);
@@ -337,13 +345,28 @@ namespace matice
                 }
                 Console.Write("\n");
             }
-            for (int i = 0; i < result.GetLength(0); i++)
+            for (int g = 0; g < result.GetLength(0); g++)
             {
-                for (int j = 0; j < result.GetLength(1); j++)
+                for (int h = 0; h < result.GetLength(1); h++)
                 {
-                    result[i,j] = myArray[]
+                    for (int i = 0; i < myArray.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < myArray.GetLength(1); j++)
+                        {
+                            for (int k = 0; k < myArray2.GetLength(0); k++)
+                            {
+                                for (int l = 0; l < myArray2.GetLength(1); l++)
+                                {
+                                    result[g, h] += myArray[i, j] * myArray2[k, l];
+                                }
+                            }
+                        }
+                    }
+
                 }
             }
+            
+            
             return result;
         }
 
