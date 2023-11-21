@@ -41,17 +41,20 @@ namespace SortingPlayground
             int tmp;
             for (int i = 0; i < sortedArray.Length; i++)
             {
-                for (int j = 0; j < sortedArray.Length+1; j++)
+                min = i;
+                for (int j = i; j < sortedArray.Length; j++)
                 {
-                    if (sortedArray[j] < min)
+                    if(sortedArray[j] < sortedArray[min])
                     {
-                        min = sortedArray[j];
-                        tmp = sortedArray[i];
-                        sortedArray[i] = min;
-                        sortedArray[j] = tmp;
+                        min = j;
                     }
-                    min = sortedArray[j + 1];
+                    
                 }
+                tmp = sortedArray[min];
+                sortedArray[min] = sortedArray[i];
+                sortedArray[i] = tmp;
+
+
             }
             return sortedArray;
         }
@@ -59,9 +62,19 @@ namespace SortingPlayground
         static int[] InsertionSort(int[] array)
         {
             int[] sortedArray = (int[])array.Clone(); // Řaď v tomto poli, ve kterém je výchoze zkopírováno všechno ze vstupního pole.
-            /*
-             * TODO: Naimplementuj insertion sort.
-             */
+            int tmp;
+            for (int i = 0; i < sortedArray.Length - 1; i++)
+            {
+                for (int j = i + 1; j > 0; j--)
+                {
+                    if (sortedArray[j - 1] > sortedArray[j])
+                    {
+                        int temp = sortedArray[j - 1];
+                        sortedArray[j - 1] = sortedArray[j];
+                        sortedArray[j] = temp;
+                    }
+                }
+            }
             return sortedArray;
         }
 
