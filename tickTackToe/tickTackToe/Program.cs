@@ -356,20 +356,22 @@ namespace tickTackToe
                    
                     if (GameOver(array))
                     {
-                        if (!WinCheck(array))
+                        Draw(array);
+                        if (WinCheck(array))
                         {
-                            Console.WriteLine();
-                            Console.WriteLine("Počítač vyhrál");
-                            whoWon = 1;
+                            Console.WriteLine("Vyhráli jste");
+                            whoWon = 0;
                             ArrayReset(array);
                             return whoWon;
                         }
-                        else if (FullPlayground(array))
+                        
+                        if (FullPlayground(array))
                         {
                             Console.WriteLine("je to remíza");
                             whoWon = 2;
                             return whoWon;
                         }
+                        
                     }
                     Console.WriteLine();
                 }
@@ -388,15 +390,16 @@ namespace tickTackToe
                 Console.WriteLine();
                 if (GameOver(array))
                 {
-                    if (!WinCheck(array))
+                    Draw(array);
+                    if (WinCheck(array))
                     {
-                        Console.WriteLine();
-                        Console.WriteLine("Počítač vyhrál");
+                        Console.WriteLine("Vyhrál počítač");
                         whoWon = 1;
                         ArrayReset(array);
                         return whoWon;
                     }
-                    else if (FullPlayground(array))
+
+                    if (FullPlayground(array))
                     {
                         Console.WriteLine("je to remíza");
                         whoWon = 2;
@@ -430,21 +433,24 @@ namespace tickTackToe
 
                 if(GameOver(array))
                 {
-                    if (!WinCheck(array))
+                    Draw(array);
+                    if (WinCheck(array))
                     {
-                        Console.WriteLine();
-                        Console.WriteLine("Počítač vyhrál");
+                        Console.WriteLine("Vyhrál počítač");
                         whoWon = 1;
                         ArrayReset(array);
                         return whoWon;
                     }
-                    else if (FullPlayground(array))
+
+                    if (FullPlayground(array))
                     {
                         Console.WriteLine("je to remíza");
                         whoWon = 2;
                         return whoWon;
                     }
-                    
+
+
+
                 }
 
                 Draw(array);
@@ -462,20 +468,23 @@ namespace tickTackToe
                 {
                     if (GameOver(array))
                     {
-                        if (!WinCheck(array))
+                        Draw(array);
+                        if (WinCheck(array))
                         {
-                            Console.WriteLine();
-                            Console.WriteLine("Počítač vyhrál");
-                            whoWon = 1;
+                            Console.WriteLine("Vyhráli jste");
+                            whoWon = 0;
                             ArrayReset(array);
                             return whoWon;
                         }
-                        else if (FullPlayground(array))
+
+                        if (FullPlayground(array))
                         {
                             Console.WriteLine("je to remíza");
                             whoWon = 2;
                             return whoWon;
                         }
+
+
                     }
                     Console.WriteLine();
                 }
