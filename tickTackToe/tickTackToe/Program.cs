@@ -21,6 +21,7 @@ namespace tickTackToe
                 "nelze přepisovat. Dále si také můžete vybrat zda chcete hrát 1, 3 či 5 kol hry - body za vítězství z každého kola se vám sečtou a na konci bude vyhrášen vítěz. Tak se do" +
                 " toho pojďme pustit");
             Console.WriteLine();
+            
             char usersAtt = AttributeChooser();
             char compsAtt;
             if (usersAtt == 'X')
@@ -356,9 +357,10 @@ namespace tickTackToe
                    
                     if (GameOver(array))
                     {
-                        Draw(array);
+                       
                         if (WinCheck(array))
                         {
+                            HighlightUser(array, usersAtt);
                             Console.WriteLine("Vyhráli jste");
                             whoWon = 0;
                             ArrayReset(array);
@@ -367,6 +369,7 @@ namespace tickTackToe
                         
                         if (FullPlayground(array))
                         {
+                            Draw(array);
                             Console.WriteLine("je to remíza");
                             whoWon = 2;
                             return whoWon;
@@ -390,9 +393,10 @@ namespace tickTackToe
                 Console.WriteLine();
                 if (GameOver(array))
                 {
-                    Draw(array);
+                    
                     if (WinCheck(array))
                     {
+                        HighlightComp(array, compsAtt);
                         Console.WriteLine("Vyhrál počítač");
                         whoWon = 1;
                         ArrayReset(array);
@@ -401,6 +405,7 @@ namespace tickTackToe
 
                     if (FullPlayground(array))
                     {
+                        Draw(array);
                         Console.WriteLine("je to remíza");
                         whoWon = 2;
                         return whoWon;
@@ -433,9 +438,10 @@ namespace tickTackToe
 
                 if(GameOver(array))
                 {
-                    Draw(array);
+                    
                     if (WinCheck(array))
                     {
+                        HighlightComp(array, compsAtt);
                         Console.WriteLine("Vyhrál počítač");
                         whoWon = 1;
                         ArrayReset(array);
@@ -444,6 +450,7 @@ namespace tickTackToe
 
                     if (FullPlayground(array))
                     {
+                        Draw(array);
                         Console.WriteLine("je to remíza");
                         whoWon = 2;
                         return whoWon;
@@ -468,9 +475,10 @@ namespace tickTackToe
                 {
                     if (GameOver(array))
                     {
-                        Draw(array);
+                        
                         if (WinCheck(array))
                         {
+                            HighlightUser(array, usersAtt);
                             Console.WriteLine("Vyhráli jste");
                             whoWon = 0;
                             ArrayReset(array);
@@ -479,6 +487,7 @@ namespace tickTackToe
 
                         if (FullPlayground(array))
                         {
+                            Draw(array);
                             Console.WriteLine("je to remíza");
                             whoWon = 2;
                             return whoWon;
@@ -541,6 +550,109 @@ namespace tickTackToe
             {
                 Console.WriteLine("Je to remíza");
             }
+        }
+
+        public static void HighlightComp(char[,] array, char compsAtt)
+        {
+            ConsoleColor originalColor = Console.ForegroundColor;
+            Console.WriteLine("  0 1 2");
+            if (compsAtt == 'X')
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    Console.Write(i + " ");
+                    for (int j = 0; j < 3; j++)
+                    {
+                        if (array[i, j] == 'X')
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = originalColor;
+                        }
+                        Console.Write(array[i, j] + " ");
+                        Console.ForegroundColor = originalColor;
+                    }
+                    Console.WriteLine();
+                }
+                
+            }
+            else
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    Console.Write(i + " ");
+                    for (int j = 0; j < 3; j++)
+                    {
+                        if (array[i, j] == 'O')
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = originalColor;
+                        }
+                        Console.Write(array[i, j] + " ");
+                        Console.ForegroundColor = originalColor;
+                    }
+                    Console.WriteLine();
+                }
+                
+            }
+            
+        }
+
+        public static void HighlightUser(char[,] array, char usersAtt)
+        {
+            ConsoleColor originalColor = Console.ForegroundColor;
+            Console.WriteLine("  0 1 2");
+            if (usersAtt == 'X')
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    Console.Write(i + " ");
+                    for (int j = 0; j < 3; j++)
+                    {
+                        if (array[i, j] == 'X')
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = originalColor;
+                        }
+                        Console.Write(array[i, j] + " ");
+                        Console.ForegroundColor = originalColor;
+                    }
+                    Console.WriteLine();
+                }
+                
+            }
+            else
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    Console.Write(i + " ");
+                    for (int j = 0; j < 3; j++)
+                    {
+                        if (array[i, j] == 'O')
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = originalColor;
+                        }
+                        Console.Write(array[i, j] + " ");
+                        Console.ForegroundColor = originalColor;
+                    }
+                    Console.WriteLine();
+                    
+                }
+                
+            }
+
         }
     }
 }
