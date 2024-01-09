@@ -33,7 +33,8 @@ namespace tickTackToe
                 compsAtt = 'X';
             }
             Console.WriteLine();
-            Console.WriteLine("Zadejte číslo 1, 3 nebo 5 a vyberte si tak variantu hry, kterou chcete hrát:");
+            Rounds(rnd, array, usersAtt, compsAtt);
+            /*Console.WriteLine("Zadejte číslo 1, 3 nebo 5 a vyberte si tak variantu hry, kterou chcete hrát:");
             int roundsNumber = RoundsInputControl(Console.ReadLine());
             
             switch (roundsNumber) //volání fcí podle toho kolik kol si hráč zvolí
@@ -44,10 +45,30 @@ namespace tickTackToe
                     break;
                 case 5:FiveRoundGame(rnd, array, compsAtt, usersAtt);
                     break;
-            }
+            }*/
 
 
             Console.ReadKey();
+        }
+
+        public static void Rounds(Random rnd, char[,] array, char compsAtt, char usersAtt)
+        {
+            Console.WriteLine("Zadejte číslo 1, 3 nebo 5 a vyberte si tak variantu hry, kterou chcete hrát:");
+            int roundsNumber = RoundsInputControl(Console.ReadLine());
+
+            switch (roundsNumber) //volání fcí podle toho kolik kol si hráč zvolí
+            {
+                case 1:
+                    OneRoundGame(rnd, array, compsAtt, usersAtt);
+
+                    break;
+                case 3:
+                    ThreeRoundGame(rnd, array, compsAtt, usersAtt);
+                    break;
+                case 5:
+                    FiveRoundGame(rnd, array, compsAtt, usersAtt);
+                    break;
+            }
         }
 
        public static void OneRoundGame(Random rnd, char[,] array, char compsAtt, char usersAtt)
@@ -57,11 +78,14 @@ namespace tickTackToe
             if (WhoStarts(rnd) == 0)
             {
                 TheGameUserStarts(array, rnd, compsAtt, usersAtt);
+                Menu(rnd, array, compsAtt,usersAtt);
             }
             else
             {
                 TheGameCompStarts(array, rnd, compsAtt, usersAtt);
+                Menu(rnd, array, compsAtt, usersAtt);
             }
+            
         }
 
         public static void ThreeRoundGame(Random rnd, char[,] array, char compsAtt, char usersAtt)
@@ -98,8 +122,9 @@ namespace tickTackToe
                     }
                 }
             }
+            ArrayReset(array);
             Console.WriteLine();
-            Result(userScore, compScore); 
+            Result(userScore, compScore, rnd, array, compsAtt, usersAtt); 
         }
 
         public static void FiveRoundGame(Random rnd, char[,] array, char compsAtt, char usersAtt)
@@ -137,8 +162,9 @@ namespace tickTackToe
                     }
                 }
             }
+            ArrayReset(array);
             Console.WriteLine();
-            Result(userScore, compScore);
+            Result(userScore, compScore, rnd, array, compsAtt, usersAtt);
         }
 
         public static int RoundsInputControl(string str) //kontrola vstupů
@@ -231,7 +257,7 @@ namespace tickTackToe
             {
                 if (char.TryParse(str, out char attribut))
                 {
-                    if (attribut == 'X' || attribut == 'x') //je vstup 1, 3 nebo 5?
+                    if (attribut == 'X' || attribut == 'x') 
                     {
                         Console.WriteLine("hrajete za znak X");
                         attribut = 'X';
@@ -263,7 +289,7 @@ namespace tickTackToe
             
             if (array[row, column] != '_' || row < 0 || row >= 3 || column < 0 || column >= 3 )
             {
-                Console.WriteLine("Tento tah nemůžete provést, pole je buď obsazené nebo jste překročili hranici. Zadejte prosím správný vstup");
+                //Console.WriteLine("Tento tah nemůžete provést, pole je buď obsazené nebo jste překročili hranici. Zadejte prosím správný vstup");
                 return false;
             }
             
@@ -271,7 +297,7 @@ namespace tickTackToe
             return true;
         }
 
-        public static bool ValidMoveUser(int row, int column, char usersAtt, char[,] array)
+        public static bool ValidMoveUser1(int row, int column, char usersAtt, char[,] array)
         {
 
             if (array[row, column] != '_' || row < 0 || row >= 3 || column < 0 || column >=3)
@@ -282,6 +308,19 @@ namespace tickTackToe
             
             array[row, column] = usersAtt;
             
+            return true;
+        }
+
+        public static bool ValidMoveUser2(int row, int column, char usersAtt, char[,] array)
+        {
+
+            if (array[row, column] != '_' || row < 0 || row >= 3 || column < 0 || column >= 3)
+            {
+                return false;
+            }
+
+            array[row, column] = usersAtt;
+
             return true;
         }
 
@@ -352,7 +391,7 @@ namespace tickTackToe
                 userCol = NumbersInput(Console.ReadLine());
                 Console.WriteLine();
 
-                if (ValidMoveUser(userRow, userCol, usersAtt, array))
+                if (ValidMoveUser1(userRow, userCol, usersAtt, array))
                 {
                    
                     if (GameOver(array))
@@ -378,6 +417,41 @@ namespace tickTackToe
                     }
                     Console.WriteLine();
                 }
+                else
+                {
+                    
+                    while (!ValidMoveUser2(userRow, userCol, usersAtt, array))
+                        {
+                            Console.WriteLine("zadejte znovu číslo řádku");
+                            userRow = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("zadejte znovu číslo sloupce");
+                            userCol = Convert.ToInt32(Console.ReadLine());
+                        }
+                    if (GameOver(array))
+                    {
+
+                        if (WinCheck(array))
+                        {
+                            HighlightUser(array, usersAtt);
+                            Console.WriteLine("Vyhráli jste");
+                            whoWon = 0;
+                            ArrayReset(array);
+                            return whoWon;
+                        }
+
+                        if (FullPlayground(array))
+                        {
+                            Draw(array);
+                            Console.WriteLine("je to remíza");
+                            whoWon = 2;
+                            ArrayReset(array);
+                            return whoWon;
+                        }
+
+                    }
+                    Console.WriteLine();
+
+                }
                 Draw(array);
                 Console.WriteLine();
                 Console.WriteLine("Hraje počítač");
@@ -389,11 +463,8 @@ namespace tickTackToe
                     compCol = rnd.Next(0, 3);
                 } while (!ValidMoveComp(compRow, compCol, compsAtt, array));
 
-                Draw(array);
-                Console.WriteLine();
                 if (GameOver(array))
                 {
-                    
                     if (WinCheck(array))
                     {
                         HighlightComp(array, compsAtt);
@@ -402,15 +473,16 @@ namespace tickTackToe
                         ArrayReset(array);
                         return whoWon;
                     }
-
                     if (FullPlayground(array))
                     {
                         Draw(array);
                         Console.WriteLine("je to remíza");
                         whoWon = 2;
+                        ArrayReset(array);
                         return whoWon;
                     }
                 }
+                Draw(array);
             }
 
             Draw(array);
@@ -438,7 +510,6 @@ namespace tickTackToe
 
                 if(GameOver(array))
                 {
-                    
                     if (WinCheck(array))
                     {
                         HighlightComp(array, compsAtt);
@@ -447,17 +518,14 @@ namespace tickTackToe
                         ArrayReset(array);
                         return whoWon;
                     }
-
                     if (FullPlayground(array))
                     {
                         Draw(array);
                         Console.WriteLine("je to remíza");
                         whoWon = 2;
+                        ArrayReset(array);
                         return whoWon;
                     }
-
-
-
                 }
 
                 Draw(array);
@@ -471,11 +539,42 @@ namespace tickTackToe
                 Console.WriteLine("Zadejte číslo sloupce");
                 userCol = NumbersInput(Console.ReadLine());
 
-                if(ValidMoveUser(userRow, userCol, usersAtt, array))
+                if(ValidMoveUser1(userRow, userCol, usersAtt, array))
                 {
                     if (GameOver(array))
                     {
-                        
+                        if (WinCheck(array))
+                        {
+                            HighlightUser(array, usersAtt);
+                            Console.WriteLine("Vyhráli jste");
+                            whoWon = 0;
+                            ArrayReset(array);
+                            
+                            return whoWon;
+                        }
+                        if (FullPlayground(array))
+                        {
+                            Draw(array);
+                            Console.WriteLine("je to remíza");
+                            whoWon = 2;
+                            ArrayReset(array);
+                            return whoWon;
+                        }
+                    }
+                    Console.WriteLine();
+                }
+                else
+                {
+
+                    while (!ValidMoveUser2(userRow, userCol, usersAtt, array))
+                    {
+                        Console.WriteLine("zadejte znovu číslo řádku");
+                        userRow = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("zadejte znovu číslo sloupce");
+                        userCol = Convert.ToInt32(Console.ReadLine());
+                    }
+                    if (GameOver(array))
+                    {
                         if (WinCheck(array))
                         {
                             HighlightUser(array, usersAtt);
@@ -484,18 +583,17 @@ namespace tickTackToe
                             ArrayReset(array);
                             return whoWon;
                         }
-
                         if (FullPlayground(array))
                         {
                             Draw(array);
                             Console.WriteLine("je to remíza");
                             whoWon = 2;
+                            ArrayReset(array);
                             return whoWon;
                         }
-
-
                     }
                     Console.WriteLine();
+
                 }
             }
 
@@ -535,20 +633,23 @@ namespace tickTackToe
             return array;
         }
 
-        public static void Result(int userScore, int compScore)
+        public static void Result(int userScore, int compScore, Random rnd, char[,] array, char compsAtt, char usersAtt)
         {
             Console.WriteLine("konečné skóre je počítač: " + compScore + " vy: " + userScore);
             if (compScore > userScore)
             {
                 Console.WriteLine("POČÍTAČ TĚ ULTIMÁTNĚ PORAZIL!!!");
+                Menu(rnd, array, compsAtt, usersAtt);
             }
             else if (compScore < userScore)
             {
                 Console.WriteLine("ULTIMÁTNĚ JSTE VYHRÁLI, GRATULUJI!!!");
+                Menu(rnd, array, compsAtt, usersAtt);
             }
             else
             {
                 Console.WriteLine("Je to remíza");
+                Menu(rnd, array, compsAtt, usersAtt);
             }
         }
 
@@ -653,6 +754,26 @@ namespace tickTackToe
                 
             }
 
+        }
+
+        public static void Menu(Random rnd, char[,] array, char compsAtt, char usersAtt)
+        {
+            Console.WriteLine("Co chcete dělat dál?");
+            Console.WriteLine("0 - hrát znovu");
+            Console.WriteLine("1 - vyberte si jinou hru");
+            Console.WriteLine("2 - ukončit hru");
+            int operation = NumbersInput(Console.ReadLine());
+            switch (operation)
+            {
+                case 0: 
+                    break;
+                case 1: Rounds(rnd, array, compsAtt, usersAtt);
+                    break; 
+                case 2: 
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
