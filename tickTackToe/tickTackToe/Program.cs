@@ -33,62 +33,50 @@ namespace tickTackToe
                 compsAtt = 'X';
             }
             Console.WriteLine();
-            Rounds(rnd, array, usersAtt, compsAtt);
-            /*Console.WriteLine("Zadejte číslo 1, 3 nebo 5 a vyberte si tak variantu hry, kterou chcete hrát:");
+            Console.WriteLine("Zadejte číslo 1, 3 nebo 5 a vyberte si tak variantu hry, kterou chcete hrát:");
             int roundsNumber = RoundsInputControl(Console.ReadLine());
-            
-            switch (roundsNumber) //volání fcí podle toho kolik kol si hráč zvolí
-            {
-                case 1:OneRoundGame(rnd, array, compsAtt, usersAtt);
-                    break;
-                case 3:ThreeRoundGame(rnd, array, compsAtt, usersAtt);
-                    break;
-                case 5:FiveRoundGame(rnd, array, compsAtt, usersAtt);
-                    break;
-            }*/
-
-
+            Console.WriteLine();
+            Rounds(rnd, array, compsAtt, usersAtt, roundsNumber);
             Console.ReadKey();
         }
 
-        public static void Rounds(Random rnd, char[,] array, char compsAtt, char usersAtt)
+        public static void Rounds(Random rnd, char[,] array, char compsAtt, char usersAtt, int roundsNumber)
         {
-            Console.WriteLine("Zadejte číslo 1, 3 nebo 5 a vyberte si tak variantu hry, kterou chcete hrát:");
-            int roundsNumber = RoundsInputControl(Console.ReadLine());
+            
 
             switch (roundsNumber) //volání fcí podle toho kolik kol si hráč zvolí
             {
                 case 1:
-                    OneRoundGame(rnd, array, compsAtt, usersAtt);
+                    OneRoundGame(rnd, array, compsAtt, usersAtt, roundsNumber);
 
                     break;
                 case 3:
-                    ThreeRoundGame(rnd, array, compsAtt, usersAtt);
+                    ThreeRoundGame(rnd, array, compsAtt, usersAtt, roundsNumber);
                     break;
                 case 5:
-                    FiveRoundGame(rnd, array, compsAtt, usersAtt);
+                    FiveRoundGame(rnd, array, compsAtt, usersAtt, roundsNumber);
                     break;
             }
         }
 
-       public static void OneRoundGame(Random rnd, char[,] array, char compsAtt, char usersAtt)
+       public static void OneRoundGame(Random rnd, char[,] array, char compsAtt, char usersAtt, int roundsNumber)
         {
             playingArray array2 = new playingArray();
             array2.DrawArray();
             if (WhoStarts(rnd) == 0)
             {
                 TheGameUserStarts(array, rnd, compsAtt, usersAtt);
-                Menu(rnd, array, compsAtt,usersAtt);
+                Menu(rnd, array, compsAtt,usersAtt, roundsNumber);
             }
             else
             {
                 TheGameCompStarts(array, rnd, compsAtt, usersAtt);
-                Menu(rnd, array, compsAtt, usersAtt);
+                Menu(rnd, array, compsAtt, usersAtt, roundsNumber);
             }
             
         }
 
-        public static void ThreeRoundGame(Random rnd, char[,] array, char compsAtt, char usersAtt)
+        public static void ThreeRoundGame(Random rnd, char[,] array, char compsAtt, char usersAtt, int roundsNumber)
         {
             playingArray array2 = new playingArray();
             array2.DrawArray();
@@ -124,10 +112,10 @@ namespace tickTackToe
             }
             ArrayReset(array);
             Console.WriteLine();
-            Result(userScore, compScore, rnd, array, compsAtt, usersAtt); 
+            Result(userScore, compScore, rnd, array, compsAtt, usersAtt, roundsNumber); 
         }
 
-        public static void FiveRoundGame(Random rnd, char[,] array, char compsAtt, char usersAtt)
+        public static void FiveRoundGame(Random rnd, char[,] array, char compsAtt, char usersAtt, int roundsNumber)
         {
             playingArray array2 = new playingArray();
             array2.DrawArray();
@@ -164,7 +152,7 @@ namespace tickTackToe
             }
             ArrayReset(array);
             Console.WriteLine();
-            Result(userScore, compScore, rnd, array, compsAtt, usersAtt);
+            Result(userScore, compScore, rnd, array, compsAtt, usersAtt, roundsNumber);
         }
 
         public static int RoundsInputControl(string str) //kontrola vstupů
@@ -633,23 +621,23 @@ namespace tickTackToe
             return array;
         }
 
-        public static void Result(int userScore, int compScore, Random rnd, char[,] array, char compsAtt, char usersAtt)
+        public static void Result(int userScore, int compScore, Random rnd, char[,] array, char compsAtt, char usersAtt, int roundsNumber)
         {
             Console.WriteLine("konečné skóre je počítač: " + compScore + " vy: " + userScore);
             if (compScore > userScore)
             {
                 Console.WriteLine("POČÍTAČ TĚ ULTIMÁTNĚ PORAZIL!!!");
-                Menu(rnd, array, compsAtt, usersAtt);
+                Menu(rnd, array, compsAtt, usersAtt, roundsNumber);
             }
             else if (compScore < userScore)
             {
                 Console.WriteLine("ULTIMÁTNĚ JSTE VYHRÁLI, GRATULUJI!!!");
-                Menu(rnd, array, compsAtt, usersAtt);
+                Menu(rnd, array, compsAtt, usersAtt, roundsNumber);
             }
             else
             {
                 Console.WriteLine("Je to remíza");
-                Menu(rnd, array, compsAtt, usersAtt);
+                Menu(rnd, array, compsAtt, usersAtt, roundsNumber);
             }
         }
 
@@ -756,8 +744,10 @@ namespace tickTackToe
 
         }
 
-        public static void Menu(Random rnd, char[,] array, char compsAtt, char usersAtt)
+        public static void Menu(Random rnd, char[,] array, char compsAtt, char usersAtt, int roundsNumber)
         {
+            
+            Console.WriteLine();
             Console.WriteLine("Co chcete dělat dál?");
             Console.WriteLine("0 - hrát znovu");
             Console.WriteLine("1 - vyberte si jinou hru");
@@ -765,14 +755,29 @@ namespace tickTackToe
             int operation = NumbersInput(Console.ReadLine());
             switch (operation)
             {
-                case 0: 
+                case 0:
+                    if (roundsNumber == 1)
+                    {
+                        OneRoundGame(rnd, ArrayReset(array), compsAtt, usersAtt, roundsNumber);
+                    }
+                    else if (roundsNumber == 3)
+                    {
+                        ThreeRoundGame(rnd, ArrayReset(array), compsAtt, usersAtt, roundsNumber);
+                    }
+                    else
+                    {
+                        FiveRoundGame(rnd, ArrayReset(array), compsAtt, usersAtt, roundsNumber);
+                    }
                     break;
-                case 1: Rounds(rnd, array, compsAtt, usersAtt);
+                case 1:
+                    Console.WriteLine("Zadejte číslo 1, 3 nebo 5 a vyberte si tak variantu hry, kterou chcete hrát:");
+                    roundsNumber = RoundsInputControl(Console.ReadLine());
+                    Rounds(rnd, ArrayReset(array), compsAtt, usersAtt, roundsNumber);
                     break; 
-                case 2: 
+                case 2:
+                    Environment.Exit(0);
                     break;
-                default:
-                    break;
+                
             }
         }
     }
