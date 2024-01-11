@@ -22,9 +22,9 @@ namespace tickTackToe
                 " toho pojďme pustit");
             Console.WriteLine();
             
-            char usersAtt = AttributeChooser();
+            char usersAtt = AttributeChooser(); //volani fce, kde si hrac vybira za jaky znak bude hrat
             char compsAtt;
-            if (usersAtt == 'X')
+            if (usersAtt == 'X') //urceni znaku pro pocitac
             {
                 compsAtt = 'O';
             }
@@ -34,58 +34,55 @@ namespace tickTackToe
             }
             Console.WriteLine();
             Console.WriteLine("Zadejte číslo 1, 3 nebo 5 a vyberte si tak variantu hry, kterou chcete hrát:");
-            int roundsNumber = RoundsInputControl(Console.ReadLine());
+            int roundsNumber = RoundsInputControl(Console.ReadLine()); //hrac zadava pocet kol
             Console.WriteLine();
-            Rounds(rnd, array, compsAtt, usersAtt, roundsNumber);
+            Rounds(rnd, array, compsAtt, usersAtt, roundsNumber); //volani fce, dle poctu zadanych kol
             Console.ReadKey();
         }
 
         public static void Rounds(Random rnd, char[,] array, char compsAtt, char usersAtt, int roundsNumber)
         {
-            
-
             switch (roundsNumber) //volání fcí podle toho kolik kol si hráč zvolí
             {
                 case 1:
-                    OneRoundGame(rnd, array, compsAtt, usersAtt, roundsNumber);
-
+                    OneRoundGame(rnd, array, compsAtt, usersAtt, roundsNumber);//1 kolo
                     break;
                 case 3:
-                    ThreeRoundGame(rnd, array, compsAtt, usersAtt, roundsNumber);
+                    ThreeRoundGame(rnd, array, compsAtt, usersAtt, roundsNumber);//3 kola
                     break;
                 case 5:
-                    FiveRoundGame(rnd, array, compsAtt, usersAtt, roundsNumber);
+                    FiveRoundGame(rnd, array, compsAtt, usersAtt, roundsNumber);//5 kol
                     break;
             }
         }
 
-       public static void OneRoundGame(Random rnd, char[,] array, char compsAtt, char usersAtt, int roundsNumber)
+       public static void OneRoundGame(Random rnd, char[,] array, char compsAtt, char usersAtt, int roundsNumber) //hra na 1 kolo
         {
             playingArray array2 = new playingArray();
-            array2.DrawArray();
-            if (WhoStarts(rnd) == 0)
+            array2.DrawArray(); //vykresleni pole pomoci tridy a jeji fce
+            if (WhoStarts(rnd) == 0) //volani fce kdy hru zacina hrac nebo pocitac, podle toho jak dopadne losovani
             {
                 TheGameUserStarts(array, rnd, compsAtt, usersAtt);
-                Menu(rnd, array, compsAtt,usersAtt, roundsNumber);
+                Menu(rnd, array, compsAtt,usersAtt, roundsNumber);//vypsani menu, kde hrac voli z moznosti zda chce pokracovat ve stejne hre, vybrat si jinou hru nebo hru uplne ukoncit
             }
             else
             {
                 TheGameCompStarts(array, rnd, compsAtt, usersAtt);
-                Menu(rnd, array, compsAtt, usersAtt, roundsNumber);
+                Menu(rnd, array, compsAtt, usersAtt, roundsNumber);//vypsani menu, kde hrac voli z moznosti zda chce pokracovat ve stejne hre, vybrat si jinou hru nebo hru uplne ukoncit
             }
             
         }
 
-        public static void ThreeRoundGame(Random rnd, char[,] array, char compsAtt, char usersAtt, int roundsNumber)
+        public static void ThreeRoundGame(Random rnd, char[,] array, char compsAtt, char usersAtt, int roundsNumber)//hra se tremi koly
         {
             playingArray array2 = new playingArray();
             array2.DrawArray();
-            int userScore = 0;
+            int userScore = 0; //promenne ktere nacitaji skore hrace a pocitace
             int compScore = 0;
-            int whoWon;
+            int whoWon; //promenna uchovavajici hodnotu 0, 1 nebo 2 (0- hrac vyhral, 1 - pocitac vyhral, 2 remiza) - dulezite ve fci Result
             for (int i = 0; i < 3; i++)
             {
-                if (WhoStarts(rnd) == 0)
+                if (WhoStarts(rnd) == 0)//volani fce kdy hru zacina hrac nebo pocitac, podle toho jak dopadne losovan
                 {
                     whoWon = TheGameUserStarts(ArrayReset(array), rnd, compsAtt, usersAtt);
                     if (whoWon == 0)
@@ -112,19 +109,19 @@ namespace tickTackToe
             }
             ArrayReset(array);
             Console.WriteLine();
-            Result(userScore, compScore, rnd, array, compsAtt, usersAtt, roundsNumber); 
+            Result(userScore, compScore, rnd, array, compsAtt, usersAtt, roundsNumber); //vypsani vysledku
         }
 
-        public static void FiveRoundGame(Random rnd, char[,] array, char compsAtt, char usersAtt, int roundsNumber)
+        public static void FiveRoundGame(Random rnd, char[,] array, char compsAtt, char usersAtt, int roundsNumber)//5 kol
         {
             playingArray array2 = new playingArray();
             array2.DrawArray();
             int whoWon;
-            int userScore = 0;
+            int userScore = 0;//promenne na vypsani vysledku
             int compScore = 0;
             for (int i = 0; i < 5; i++)
             {
-                if (WhoStarts(rnd) == 0)
+                if (WhoStarts(rnd) == 0)//volani fce kdy hru zacina hrac nebo pocitac, podle toho jak dopadne losovan
                 {
                     whoWon = TheGameUserStarts(ArrayReset(array), rnd, compsAtt, usersAtt);
                     if (whoWon == 0)
@@ -155,7 +152,7 @@ namespace tickTackToe
             Result(userScore, compScore, rnd, array, compsAtt, usersAtt, roundsNumber);
         }
 
-        public static int RoundsInputControl(string str) //kontrola vstupů
+        public static int RoundsInputControl(string str) //kontrola vstupu, kdyz uzivatel zadava pocet kol
         {
             while (true)
             {
@@ -180,7 +177,7 @@ namespace tickTackToe
             }
         }
 
-        public static int NumbersInput(string str)
+        public static int NumbersInput(string str)//kontrola zadavani souradnic radku a sloupcu 0-2
         {
             while (true)
             {
@@ -205,12 +202,12 @@ namespace tickTackToe
             }
         }
 
-        public static int WhoStarts(Random rnd)
+        public static int WhoStarts(Random rnd)//losovani - kdo zacne
         {
             int usersRoll;
             int compsRoll;
             int whoStarts = 0;
-            do
+            do//generovani cisla 1-6, kdo "hodi" vic tak zacina
             {
                 Console.WriteLine("nyní házíte kostkou vy");
                 usersRoll = rnd.Next(1, 7);
@@ -237,7 +234,7 @@ namespace tickTackToe
             return whoStarts;
         }
 
-        public static char AttributeChooser()
+        public static char AttributeChooser()//hrac si vybira zda chce hrat za O nebo X
         {
             Console.WriteLine("vyberte si znak, za který chcete hrát O/X");
             string str = Console.ReadLine();
@@ -245,13 +242,13 @@ namespace tickTackToe
             {
                 if (char.TryParse(str, out char attribut))
                 {
-                    if (attribut == 'X' || attribut == 'x') 
+                    if (attribut == 'X' || attribut == 'x') //hrac muze zadat i male pismeno a nebude to chyba
                     {
                         Console.WriteLine("hrajete za znak X");
                         attribut = 'X';
                         return attribut;
                     }
-                    else if(attribut == 'O' || attribut == 'o'|| attribut == '0')
+                    else if(attribut == 'O' || attribut == 'o'|| attribut == '0')//hrac muze zadat velke o, male o i nulu
                     {
                         
                         Console.WriteLine("hrajete za znak O");
@@ -272,12 +269,11 @@ namespace tickTackToe
             }
         }
 
-        public static bool ValidMoveComp(int row, int column, char compsAtt, char[,] array)
+        public static bool ValidMoveComp(int row, int column, char compsAtt, char[,] array)//fce kontrolujici jestli souradnice ktere byly pro pocitac vygenerovany uz nejsou obsazene
         {
             
-            if (array[row, column] != '_' || row < 0 || row >= 3 || column < 0 || column >= 3 )
+            if (array[row, column] != '_')
             {
-                //Console.WriteLine("Tento tah nemůžete provést, pole je buď obsazené nebo jste překročili hranici. Zadejte prosím správný vstup");
                 return false;
             }
             
@@ -285,7 +281,7 @@ namespace tickTackToe
             return true;
         }
 
-        public static bool ValidMoveUser1(int row, int column, char usersAtt, char[,] array)
+        public static bool ValidMoveUser1(int row, int column, char usersAtt, char[,] array)//fce kontroluje jess
         {
 
             if (array[row, column] != '_' || row < 0 || row >= 3 || column < 0 || column >=3)
